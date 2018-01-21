@@ -1,0 +1,70 @@
+package com.sehun.problem3;
+
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class Problem3 {
+	public static void main(String[] args) {
+		JFrame myFrame = new JFrame("this is frame");
+		
+		JPanel pn = new JPanel();
+		JPanel pn1 = new JPanel();
+		JPanel pn2 = new JPanel();
+		JPanel pn3 = new JPanel();
+		JPanel pn4 = new JPanel();
+		JPanel pn5 = new JPanel();
+		
+		JList myList = new JList();
+		
+		JLabel nameLabel = new JLabel();
+		JLabel genderLabel = new JLabel();
+		JLabel ageLabel = new JLabel();
+		JLabel nameLabelTf = new JLabel();
+		JLabel genderLabelTf = new JLabel();
+		JLabel ageLabelTf = new JLabel();
+		
+		JButton addBtn = new JButton();
+		
+		JTextField nameTf = new JTextField();
+		JTextField genderTf = new JTextField();
+		JTextField ageTf = new JTextField();
+		
+		nameLabel.setText("이름 : ");
+		genderLabel.setText("성별 : ");
+		ageLabel.setText("나이 : ");
+		
+		nameLabelTf.setText("이름 : ");
+		genderLabelTf.setText("성별 : ");
+		ageLabelTf.setText("나이 : ");
+		
+		GridLayout gl = new GridLayout(3, 1);
+		GridLayout gl1 = new GridLayout(1, 3);
+		GridLayout gl2 = new GridLayout(1, 4);
+		
+		pn.setLayout(gl);
+		
+		pn2.add(myList);
+		pn.add(pn2);
+		pn.add(pn1);
+		
+		pn3.setLayout(gl1);
+		pn3.add(nameLabel);
+		pn3.add(genderLabel);
+		pn3.add(ageLabel);
+		pn.add(pn3);
+		
+		pn4.setLayout(gl2);
+		pn.add(pn4);
+		
+		myFrame.setContentPane(pn);
+		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		myFrame.setSize(900, 500);
+		myFrame.setVisible(true);
+	}
+}

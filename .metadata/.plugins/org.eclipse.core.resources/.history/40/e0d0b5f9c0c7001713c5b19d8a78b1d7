@@ -1,0 +1,322 @@
+package com.sehun.main;
+
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+public class JCalculator {
+	
+	private JFrame frame;
+	private ActionListener btnClickListener;
+	
+	private BigDecimal resultValue; //result;
+	private BigDecimal memValue;
+	private boolean isNewValue;
+	
+	private JButton selectedOperatorBtn;
+	private static final String divideErrorString = "0으로 나눌 수 없습니다.";
+	
+	//set component
+	private JLabel myLabel;
+	private JButton plusButton;
+	private JButton minusButton;
+	private JButton crossButton;
+	private JButton dividButton;
+	private JButton enterButton;
+	private JTextField mytext;
+	private Container myContainer;
+	private Font buttonFont;
+	
+	public void start() {
+		this.init();
+		this.setUI();
+		this.setEventListener();
+	}
+	
+	private void init() {
+		this.resultValue = new BigDecimal(0);
+		this.memValue = new BigDecimal(0);
+		
+		this.selectedOperatorBtn = null;
+		this.isNewValue = true;
+		
+		//set btnClickListener
+		this.btnClickListener = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String textValue = mytext.getText();
+				
+				JButton thisButton = (JButton)e.getSource();
+				String name = thisButton.getText();
+				
+				if(name == "/") {
+					inputOperator(thisButton);
+				}
+				
+				else if(name == "+") {
+					inputOperator(thisButton);
+				}
+				
+				else if(name == "-") {
+					inputOperator(thisButton);
+				}
+				
+				else if(name == "*") {
+					inputOperator(thisButton);
+				}
+				
+				else if(name == "<-") {
+					inputBackspace();
+				}
+				
+				else if(name == "C") {
+					inputEscape();
+				}
+				
+				else if(name == "확인") {
+					inputEnter();
+				}
+				
+				else {
+					pressNumberBtn(name);
+				}
+			}
+		};
+	}
+	
+	private void setUI() {
+		frame = new JFrame("JCalculator");
+		
+		myContainer = new Container();
+		frame.getContentPane().add(myContainer);
+		
+		this.myLabel = new JLabel();
+		this.myLabel.setText("M");
+		this.myLabel.setBounds(5, 12, 20, 20);
+		this.myLabel.setVisible(true);
+		myContainer.add(this.myLabel);
+		
+		mytext = new JTextField();
+		mytext.setBorder(null);
+		mytext.setText("0");
+		mytext.setHorizontalAlignment(JTextField.RIGHT);
+		mytext.setBounds(25, 0, 215, 40);
+		myContainer.add(mytext);
+		
+		int btnScale = 60;
+		
+		//setNumberBtn;
+		ArrayList<Character>setButtonCharacter = new ArrayList<Character>();
+		setButtonCharacter.add('7');setButtonCharacter.add('8');setButtonCharacter.add('9');
+		setButtonCharacter.add('4');setButtonCharacter.add('5');setButtonCharacter.add('6');
+		setButtonCharacter.add('1');setButtonCharacter.add('2');setButtonCharacter.add('3');
+		setButtonCharacter.add('.');setButtonCharacter.add('0');setButtonCharacter.add('C');
+		
+		for(int i = 0; i<4; i++) {
+			for(int j = 0; j<3; j++) {
+				String name = String.valueOf(setButtonCharacter.remove(0));
+				
+				createBtn(name, 8+j*btnScale, 130+(i*btnScale), btnScale, btnScale);	
+			}
+		}
+		
+		//setOperatorBtn;
+		plusButton = createBtn("+", btnScale*3+18, 80, btnScale, 43);
+		minusButton = createBtn("-", btnScale*2+12, 80, btnScale, 43);
+		crossButton = createBtn("*", btnScale+6, 80, btnScale, 43);
+		dividButton = createBtn("/", 0, 80, btnScale, 43);
+		enterButton = createBtn("=", btnScale*3+18, 246, btnScale, 55);
+		createBtn("<-", btnScale*3+18, 123+6, btnScale, 55);
+		
+		frame.pack();
+		frame.setSize(300, 410);
+		frame.setVisible(true);
+		
+	}
+	
+	
+	
+	private void inputOperator(JButton thisButton) {
+		String textValue = mytext.getText();
+		
+		if(textValue.equals(divideErrorString)) return;
+		
+		if(isNewValue == false) calculate();
+		
+		if(selectedOperatorBtn != null) selectedOperatorBtn.setForeground(Color.black);
+		
+		thisButton.setForeground(Color.red);
+		
+		selectedOperatorBtn = thisButton;
+	}
+	
+	private void calculate() {
+		Float fValue = Float.valueOf(mytext.getText());
+		
+		if(selectedOperatorBtn == null) {
+			resultValue = new BigDecimal(fValue);
+			isNewValue = true;
+			return;
+		}
+		
+		switch(selectedOperatorBtn.getName()) {
+		
+		case "/":
+			if(mytext.getText().equals("0") || mytext.getText().equals("0.")) {
+				this.mytext.setText(this.divideErrorString);
+				this.selectedOperatorBtn = null;
+				this.isNewValue = true;
+				this.resultValue = new BigDecimal(0);
+				return;
+			}
+			resultValue = resultValue.divide(new BigDecimal(fValue));
+			break;
+			
+		case "*":
+			resultValue = resultValue.multiply(new BigDecimal(fValue));
+			break;
+			
+		case "+":
+			resultValue = resultValue.add(new BigDecimal(fValue));
+			break;
+			
+		case "-":
+			resultValue = resultValue.subtract(new BigDecimal(fValue));
+			break;
+		}
+		
+		Float f = resultValue.floatValue();
+		Integer i = resultValue.intValue();
+		
+		if(f.equals(Float.valueOf(i))) {
+			mytext.setText(String.valueOf(i));
+		}
+		else {
+			mytext.setText(String.valueOf(f));
+		}
+		
+		isNewValue = true;
+			
+	}
+	
+	private void inputBackspace() {
+		String myTextValue = mytext.getText();
+		
+		mytext.setText(myTextValue.substring(0, myTextValue.length()-1));
+		
+		if(mytext.getText().equals("")) {
+			mytext.setText("0");
+		}
+				
+	}
+	
+	private void inputEscape() {
+		mytext.setText("0");
+		resultValue = new BigDecimal(0);
+		
+		if(selectedOperatorBtn != null) {
+			selectedOperatorBtn.setForeground(Color.black);
+		}
+		selectedOperatorBtn = null;
+	}
+	
+	private void inputEnter() {
+		String myTextValue = mytext.getText();
+		
+		if(myTextValue.equals(divideErrorString)) return;
+		
+		calculate();
+		
+		if(selectedOperatorBtn != null) {
+			selectedOperatorBtn.setForeground(Color.black);
+		}
+	}
+	
+	private void pressNumberBtn(String numberString) {
+		String myTextValue = mytext.getText();
+		
+		if(isNewValue == true) {
+			if(selectedOperatorBtn != null) {
+				selectedOperatorBtn.setForeground(Color.red);
+			}
+			
+			mytext.setText("");
+			isNewValue = false;
+		}
+		
+		myTextValue = mytext.getText();
+		
+		if(myTextValue.equals("0")) {
+			mytext.setText("");
+			myTextValue = "";
+		}
+		mytext.setText(myTextValue + numberString);
+		
+		if(mytext.getText().equals(".")) {
+			mytext.setText("0.");
+		}
+	}
+	
+	private JButton createBtn(String name, int location_x, int location_y, int height, int width) {
+		JButton btn = new JButton(name);
+		btn.setName(name);
+		btn.setBounds(location_x, location_y, width, height);
+		btn.addActionListener(this.btnClickListener);
+		btn.setFont(this.buttonFont);
+		this.myContainer.add(btn);
+		
+		return btn;
+	}
+	
+	private void setEventListener() {
+		this.frame.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				Integer code = Integer.valueOf(e.getKeyChar());
+				
+				if(code>= 48 && code<57) {
+					pressNumberBtn(String.valueOf(e.getKeyChar()));
+				}
+				else if(code == 43) inputOperator(plusButton);
+				else if(code == 45) inputOperator(minusButton);
+				else if(code == 42) inputOperator(crossButton);
+				else if(code == 47) inputOperator(dividButton);
+				else if(code == 10) inputEnter();
+				else if(code == 27) inputEscape();
+				else if(code == 8) inputBackspace();
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				
+			}
+		});
+	}
+	
+	private void trace(String value) {
+		System.out.println(value);
+	}
+	
+	public static void main(String[] args) {
+		new JCalculator().start();
+	}
+
+}

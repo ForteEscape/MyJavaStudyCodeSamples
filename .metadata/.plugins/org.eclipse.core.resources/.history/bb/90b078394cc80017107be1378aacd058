@@ -1,0 +1,27 @@
+package com.sehun.test;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+public class MyKeyListener implements KeyListener {
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		Integer keycode = Integer.valueOf(e.getKeyChar());
+		
+		if(keycode == 8) {
+			
+		}
+	}
+
+}

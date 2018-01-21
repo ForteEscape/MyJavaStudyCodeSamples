@@ -1,0 +1,43 @@
+package com.sehun.main;
+
+import java.awt.Color;
+import java.awt.Container;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class Problem1 {
+	
+	JFrame myJFrame;
+	JLabel myJLabel;
+	Container myContainer; 
+	
+	private void start() {
+		createUI();
+	}
+	
+	private void createUI() {
+		myJFrame = new JFrame("This is Frame");
+		myContainer = new Container();
+		
+		myJFrame.getContentPane().add(myContainer);
+		
+		this.myJLabel = new JLabel();
+		this.myJLabel.setText("ABCD");
+		this.myJLabel.setVisible(true);
+		this.myJLabel.setBackground(Color.WHITE);
+		this.myJLabel.setFocusable(true);
+		
+		myContainer.add(this.myJLabel);
+		
+		myJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		myJFrame.setSize(500, 500);
+		myJFrame.setVisible(true);
+	}
+
+	public static void main(String[] args) {
+		new Problem1().start();
+
+	}
+
+}

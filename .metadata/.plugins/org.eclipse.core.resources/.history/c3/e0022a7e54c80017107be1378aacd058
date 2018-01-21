@@ -1,0 +1,70 @@
+package com.sehun.problem2;
+
+import java.awt.GridLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class Problem2 {
+	public static void main(String[] args) {
+		JFrame myJFrame = new JFrame("This is Frame");
+		JPanel pn = new JPanel();
+		JPanel pn1 = new JPanel();
+		JPanel pn2 = new JPanel();
+		JPanel pn3 = new JPanel();
+		JPanel pn4 = new JPanel();
+		JPanel pn5 = new JPanel();
+		JButton resultBtn = new JButton();
+		
+		JCheckBox[] chk = new JCheckBox[5];
+		
+		for(int i = 0; i<chk.length; i++) {
+			chk[i] = new JCheckBox();
+		}
+		
+		chk[1].setText("C");
+		chk[2].setText("C++");
+		chk[3].setText("java");
+		
+		resultBtn.setText("결과출력");
+		
+		JLabel lb1 = new JLabel();
+		JLabel lb2 = new JLabel();
+		JLabel lb3 = new JLabel();
+		JLabel lb4 = new JLabel();
+		JLabel lb5 = new JLabel();
+		
+		lb1.setText("설문조사지 입니다.");
+		lb2.setText("dddd");
+		lb3.setText("dddd");
+		lb4.setText("dddd");
+		lb5.setText("dddd");
+		
+		GridLayout gl = new GridLayout(5,1);
+		
+		pn.setLayout(gl);
+		
+		pn.add(pn1);
+		pn.add(pn2);
+		pn.add(pn3);
+		pn.add(pn4);
+		pn.add(pn5);
+		
+		pn1.add(lb1);
+		pn2.add(lb2);
+		pn3.add(lb3);
+		pn4.add(lb4);
+		pn5.add(lb5);
+		pn5.add(resultBtn);
+		
+		myJFrame.setContentPane(pn);
+		myJFrame.setSize(800, 800);
+		myJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		myJFrame.setVisible(true);
+	}
+}

@@ -1,0 +1,54 @@
+package com.sehun.main;
+
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class Main2 {
+
+	public static void main(String[] args) {
+		
+		String number = "0";
+		
+		String []list = {"JAVA", "Python", "R"};
+		JFrame fr = new JFrame("This is Frame");
+		JPanel pn = new JPanel();
+		pn.setLayout(new GridLayout(2,2));
+		JLabel lbl = new JLabel();
+		JTextField tf = new JTextField();
+		JButton btn = new JButton("Button");
+		JList<String> ls = new JList<>();
+		
+		ls.setListData(list);
+		
+		//lbl.addKeyListener(new MyKeyListener());
+		tf.addKeyListener(new MyKeyListener());
+		//btn.addKeyListener(new MyKeyListener());
+		
+		btn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JButton btn = (JButton) e.getSource();
+				lbl.setText(number+"1");
+			}
+		});
+		
+		ls.addKeyListener(new MyKeyListener());
+		pn.add(lbl);
+		pn.add(tf);
+		pn.add(btn);
+		pn.add(ls);
+		
+		fr.setContentPane(pn);
+		fr.setSize(600, 400);
+		fr.setVisible(true);
+	}
+
+}

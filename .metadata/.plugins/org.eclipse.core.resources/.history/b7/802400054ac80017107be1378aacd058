@@ -1,0 +1,38 @@
+package com.sehun.main;
+
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.event.KeyListener;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class Problem1 {
+	
+	public static void main(String[] args) {
+		
+		JFrame myJFrame = new JFrame("This is Frame");
+		JLabel myJLabel = new JLabel();
+		Container myContainer = new Container();
+		
+		myJFrame.getContentPane().add(myContainer);
+		
+		myJLabel = new JLabel();
+		myJLabel.setText("ABCD");
+		myJLabel.setBounds(500,500,500,500);
+		myJLabel.setVisible(true);
+		myJLabel.setBackground(Color.WHITE);
+		
+		myJLabel.addKeyListener(new MyKeyListener());
+		myJLabel.addMouseListener(new MyMouseListener());
+		
+		myContainer.add(myJLabel);
+		
+		myJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		myJFrame.setSize(500, 500);
+		myJFrame.setVisible(true);
+	}
+
+}
+
+

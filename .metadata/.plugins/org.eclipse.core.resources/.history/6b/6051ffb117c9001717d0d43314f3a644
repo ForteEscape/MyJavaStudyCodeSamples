@@ -1,0 +1,37 @@
+package com.sehun.problem3;
+
+public class Person {
+	public String name;
+	public String gender;
+	public String age;
+	
+	public String[] nameArray;
+	public String[] genderArray;
+	public String[] ageArray;
+	
+	Person(){
+		
+	}
+	
+	Person(String name, String gender, String age){
+		
+	}
+	
+	void setname(String name) {
+		int i = 0;
+		this.nameArray[i] = name;
+		i++;
+	}
+	
+	void setgender(String gender) {
+		int i = 0;
+		this.genderArray[i] = gender;
+		i++;
+	}
+	
+	void setage(String age) {
+		int i = 0;
+		this.ageArray[i] = age;
+		i++;
+	}
+}

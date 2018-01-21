@@ -1,0 +1,36 @@
+package com.sehun.main;
+
+import java.awt.Container;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class Problem1 {
+	
+	JFrame myJFrame;
+	JLabel myJLabel;
+	Container myContainer; 
+	
+	private void start() {
+		createUI();
+	}
+	
+	private void createUI() {
+		myJFrame = new JFrame("This is Frame");
+		myContainer = new Container();
+		
+		myJFrame.getContentPane().add(myContainer);
+		
+		this.myJLabel = new JLabel();
+		this.myJLabel.setText("");
+		this.myJLabel.setVisible(true);
+		
+		myContainer.add(myJLabel);
+	}
+
+	public static void main(String[] args) {
+		new Problem1().start();
+
+	}
+
+}
